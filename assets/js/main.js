@@ -47,10 +47,19 @@ itemElements.forEach((itemElement, index) => {
 });
 
 // ===== swiper =====
-const [btnShipsEnter, btnShipsPrev, btnCampaignPrev, fadeIn] = [
+const [
+  btnShipsEnter,
+  btnShipsPrev,
+  btnCampaignPrev,
+  headingDefault,
+  headingClassic,
+  fadeIn,
+] = [
   document.querySelector("[data-ships-enter]"),
   document.querySelector("[data-ships-prev]"),
   document.querySelector("[data-campaign-prev]"),
+  document.querySelector("[data-heading-default]"),
+  document.querySelector("[data-heading-classic]"),
   document.querySelectorAll("[data-fade]"),
 ];
 
@@ -115,8 +124,14 @@ const campaignSwiper = new Swiper("[data-campaign-swiper]", {
       });
     },
     slideChange: (sw) => {
+      // # 
       btnCampaignPrev.style.display = sw.realIndex === 0 ? "none" : "block";
       btnShipsPrev.style.display = sw.realIndex === 0 ? "block" : "none";
+      // #
+      const currentSlide = sw.slides[sw.realIndex];
+      const isDetect = currentSlide.hasAttribute("data-classic");
+      headingDefault.style.display = isDetect ? "none" : "block";
+      headingClassic.style.display = isDetect ? "block" : "none";
     },
   },
 });
